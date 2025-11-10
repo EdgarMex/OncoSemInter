@@ -1,0 +1,20 @@
+project:
+  name: "Clinical Knowledge Graph Demo"
+  author: "Tu Nombre"
+  created: "2025-11-10"
+
+data:
+  path: "./data/"
+  format: "turtle"
+
+rules:
+  path: "./rules/"
+
+output:
+  path: "./output/"
+  export_formats: ["rdf", "json", "csv", "html"]
+
+engine:
+  inference: true
+  validation: true
+  alerts: true
