@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Rudof Clinical Knowledge Graph Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f6f8fa;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2a5d9f;
+    }
+    h2 {
+      color: #175b40;
+      margin-top: 40px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 95%;
+      margin: 10px auto;
+      background-color: #fff;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #2a5d9f;
+      color: white;
+      padding: 8px;
+    }
+    td {
+      padding: 6px 10px;
+      text-align: left;
+    }
+    .alert {
+      background-color: #fff3cd;
+    }
+    .passed {
+      color: green;
+      font-weight: bold;
+    }
+    .failed {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>📋 Clinical Knowledge Graph — Rudof Report</h1>
+<p><b>Fecha de generación:</b> 10 noviembre 2025</p>
+<p><b>Autor:</b> Fco. Edgar Castillo Barrera</p>
+
+<hr/>
+
+<h2>👩‍⚕️ Pacientes Cargados</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Nombre</th><th>Edad</th><th>Género</th><th>Condiciones</th>
+  </tr>
+  <tr>
+    <td>P001</td><td>Juan García</td><td>39</td><td>M</td><td>Hipertensión</td>
+  </tr>
+  <tr>
+    <td>P002</td><td>María López</td><td>34</td><td>F</td><td>—</td>
+  </tr>
+</table>
+
+<h2>🧪 Resultados de Inferencias</h2>
+<table>
+  <tr>
+    <th>Paciente</th><th>Inferencia</th><th>Valor</th>
+  </tr>
+  <tr>
+    <td>Juan García</td><td>isAdult</td><td>true</td>
+  </tr>
+  <tr>
+    <td>Juan García</td><td>hasHighGlucose</td><td>true</td>
+  </tr>
+  <tr>
+    <td>Juan García</td><td>possibleCondition</td><td>diabetes</td>
+  </tr>
+  <tr>
+    <td>Juan García</td><td>syndrome</td><td>metabolic</td>
+  </tr>
+  <tr>
+    <td>Juan García</td><td>riskCategory</td><td>high</td>
+  </tr>
+  <tr>
+    <td>María López</td><td>isAdult</td><td>true</td>
+  </tr>
+</table>
+
+<h2>✅ Validaciones</h2>
+<table>
+  <tr>
+    <th>Chequeo</th><th>Estado</th>
+  </tr>
+  <tr><td>Pacientes con ID</td><td class="passed">OK</td></tr>
+  <tr><td>Pacientes con nombre</td><td class="passed">OK</td></tr>
+  <tr><td>Observaciones con unidad</td><td class="passed">OK</td></tr>
+  <tr><td>Condiciones con código</td><td class="passed">OK</td></tr>
+</table>
+
+<h2>⚠️ Alertas Clínicas Generadas</h2>
+<table>
+  <tr>
+    <th>Paciente</th><th>Alerta</th>
+  </tr>
+  <tr class="alert">
+    <td>Juan García</td>
+    <td>High glucose - recheck fasting sugar</td>
+  </tr>
+  <tr class="alert">
+    <td>Juan García</td>
+    <td>Metabolic syndrome detected; recommend lifestyle change</td>
+  </tr>
+  <tr class="alert">
+    <td>María López</td>
+    <td>No condition found; consider initial screening</td>
+  </tr>
+</table>
+
+<h2>📦 Resumen General</h2>
+<table>
+  <tr><th>Métrica</th><th>Valor</th></tr>
+  <tr><td>Datos cargados</td><td>3 conjuntos (patients, observations, conditions)</td></tr>
+  <tr><td>Reglas aplicadas</td><td>12 (5 inferencias, 4 validaciones, 3 alertas)</td></tr>
+  <tr><td>Hechos inferidos</td><td>9</td></tr>
+  <tr><td>Validaciones</td><td>4/4 OK</td></tr>
+  <tr><td>Alertas clínicas</td><td>6 generadas</td></tr>
+  <tr><td>Formato de exportación</td><td>RDF / JSON / CSV / HTML</td></tr>
+</table>
+
+<hr/>
+<footer>
+  <p>Generado automáticamente por <b>Rudof</b> — RDF Clinical Graph Engine</p>
+</footer>
+
+</body>
+</html>
