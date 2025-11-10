@@ -1,0 +1,4 @@
+prefix : <http://example.org/>
+
+:alice a :Person; 
+       :knows :bob {| :since 2020 |} .

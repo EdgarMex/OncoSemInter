@@ -1,0 +1,8 @@
+shapeId,propertyId,valueShape, valueDatatype, valueConstraint, mandatory, repeatable
+Person,name,,xsd:string,,true,false
+,birthDate,,xsd:date,,false,false
+,gender,,,male female other,false,false
+,knows, Person,,,false,true
+,worksFor, Company,,,false,true
+,,,,
+Company,founder, Person,,,false,false

@@ -1,0 +1,6 @@
+Patient: María García
+Age: 55
+Condition: Breast Cancer (SNOMED:254837009)
+ER Status: Positive
+BRCA1: Detected
+Treatment: Tamoxifen 20mg

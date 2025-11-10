@@ -1,0 +1,11 @@
+@prefix :     <http://example.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+        
+:StanfordGraduate
+	a sh:NodeShape ;
+	sh:targetNode :Alice ;
+	sh:property [
+		sh:path :alumniOf ;
+		sh:hasValue "Stanford" ;
+	] .

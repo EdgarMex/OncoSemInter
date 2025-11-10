@@ -1,0 +1,445 @@
+
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "timestamp": "2025-10-28T15:00:00Z",
+  "total": 5,
+  "entry": [
+    {
+      "fullUrl": "http://ehr.hospital.com/fhir/Patient/bc-2025-001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "bc-2025-001",
+        "meta": {
+          "lastUpdated": "2025-10-28T14:30:00Z"
+        },
+        "identifier": [
+          {
+            "system": "http://hospital.com/MRN",
+            "value": "BC-2025-001"
+          },
+          {
+            "system": "http://hospital.com/SSN",
+            "value": "123-45-6789"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "María"
+            ],
+            "family": "García"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+54 11 4000-0000",
+            "use": "home"
+          },
+          {
+            "system": "email",
+            "value": "maria.garcia@example.com"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1970-05-15",
+        "address": [
+          {
+            "use": "home",
+            "type": "both",
+            "text": "Avenida 9 de Julio, Buenos Aires",
+            "line": [
+              "Avenida 9 de Julio 123"
+            ],
+            "city": "Buenos Aires",
+            "state": "Buenos Aires",
+            "postalCode": "1086",
+            "country": "Argentina"
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                    "code": "C",
+                    "display": "Emergency Contact"
+                  }
+                ]
+              }
+            ],
+            "name": {
+              "given": [
+                "Juan"
+              ],
+              "family": "García"
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+54 11 5000-0000"
+              }
+            ]
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "M",
+              "display": "Married"
+            }
+          ]
+        },
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "es-AR"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://ehr.hospital.com/fhir/Condition/cond-breast-cancer-001",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-breast-cancer-001",
+        "meta": {
+          "lastUpdated": "2025-10-28T14:30:00Z"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "severity": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "24484000",
+              "display": "Severe"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "254837009",
+              "display": "Invasive Ductal Carcinoma of Breast"
+            },
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "C50.911",
+              "display": "Malignant neoplasm of unspecified site of right female breast"
+            }
+          ],
+          "text": "Cáncer de Mama Ductal Invasivo"
+        },
+        "subject": {
+          "reference": "Patient/bc-2025-001",
+          "display": "María García"
+        },
+        "onsetDateTime": "2025-08-15",
+        "recordedDate": "2025-10-28T14:30:00Z",
+        "recorder": {
+          "reference": "Practitioner/dr-smith-001",
+          "display": "Dr. James Smith"
+        },
+        "stage": [
+          {
+            "summary": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "258219007",
+                  "display": "Stage IIA"
+                }
+              ],
+              "text": "Stage II – invasive ductal carcinoma"
+            },
+            "assessment": [
+              {
+                "reference": "Observation/obs-tumor-size-001"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://ehr.hospital.com/fhir/Observation/obs-er-status-001",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-er-status-001",
+        "meta": {
+          "lastUpdated": "2025-10-28T14:30:00Z"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "16112-5",
+              "display": "Estrogen receptor [Interpretation] in Tissue"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "81325006",
+              "display": "Estrogen receptor"
+            }
+          ],
+          "text": "Estrogen receptor (ER) status"
+        },
+        "subject": {
+          "reference": "Patient/bc-2025-001",
+          "display": "María García"
+        },
+        "effectiveDateTime": "2025-10-28T10:00:00Z",
+        "issued": "2025-10-28T14:30:00Z",
+        "performer": [
+          {
+            "reference": "Organization/lab-001",
+            "display": "Central Laboratory"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "10828004",
+              "display": "Positive"
+            }
+          ],
+          "text": "Positive"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "POS",
+                "display": "Positive"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "text": "Negative"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://ehr.hospital.com/fhir/Observation/obs-brca-mutation-001",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-brca-mutation-001",
+        "meta": {
+          "lastUpdated": "2025-10-28T14:30:00Z"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "13717-0",
+              "display": "BRCA1 gene mutations detected [Identifier]"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "35934009",
+              "display": "BRCA1 gene"
+            }
+          ],
+          "text": "BRCA1 mutation detection"
+        },
+        "subject": {
+          "reference": "Patient/bc-2025-001",
+          "display": "María García"
+        },
+        "effectiveDateTime": "2025-10-28T10:00:00Z",
+        "issued": "2025-10-28T14:30:00Z",
+        "performer": [
+          {
+            "reference": "Organization/genetic-lab-001",
+            "display": "Genetic Testing Laboratory"
+          }
+        ],
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "LA9633-4",
+              "display": "Present"
+            }
+          ],
+          "text": "BRCA1 5382insC mutation detected"
+        },
+        "note": [
+          {
+            "text": "Patient carries pathogenic BRCA1 variant 5382insC (c.5382insC). Strong predisposition to breast and ovarian cancer."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "http://ehr.hospital.com/fhir/MedicationStatement/med-tamoxifen-001",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "med-tamoxifen-001",
+        "meta": {
+          "lastUpdated": "2025-10-28T14:30:00Z"
+        },
+        "status": "active",
+        "category": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/medication-statement-category",
+              "code": "inpatient",
+              "display": "Inpatient"
+            }
+          ]
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "10324",
+              "display": "Tamoxifen"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "45890009",
+              "display": "Tamoxifen"
+            }
+          ],
+          "text": "Tamoxifen (selective estrogen receptor modulator)"
+        },
+        "subject": {
+          "reference": "Patient/bc-2025-001",
+          "display": "María García"
+        },
+        "effectivePeriod": {
+          "start": "2025-10-28",
+          "end": "2026-10-28"
+        },
+        "informationSource": {
+          "reference": "Practitioner/dr-smith-001",
+          "display": "Dr. James Smith"
+        },
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "254837009",
+                "display": "Invasive Ductal Carcinoma of Breast"
+              }
+            ]
+          }
+        ],
+        "dosage": [
+          {
+            "sequence": 1,
+            "text": "20 mg once daily for one year as adjuvant therapy",
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "asNeededBoolean": false,
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",
+                      "code": "ordered",
+                      "display": "Ordered"
+                    }
+                  ]
+                },
+                "doseQuantity": {
+                  "value": 20,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

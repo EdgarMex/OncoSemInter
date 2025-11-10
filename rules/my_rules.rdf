@@ -1,0 +1,24 @@
+PREFIX ex: <http://example.org/>
+PREFIX fhir: <http://hl7.org/fhir/>
+
+# Regla 1: Adultos (mayores de 18)
+RULE adult_patients
+    CONSTRUCT {
+        ?patient ex:isAdult true .
+    }
+    WHERE {
+        ?patient a fhir:Patient ;
+                 ex:age ?age .
+        FILTER(?age >= 18)
+    }
+
+# Regla 2: Pacientes mayores (mayores de 60)
+RULE senior_patients
+    CONSTRUCT {
+        ?patient ex:isSenior true .
+    }
+    WHERE {
+        ?patient a fhir:Patient ;
+                 ex:age ?age .
+        FILTER(?age >= 60)
+    }
