@@ -1,0 +1,18 @@
+@prefix ex: <http://example.org/> .
+@prefix fhir: <http://hl7.org/fhir/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Observaciones (laboratorios)
+ex:obs-001 a fhir:Observation ;
+    fhir:subject ex:patient-001 ;
+    fhir:code "glucose" ;
+    fhir:valueQuantity 185 ;
+    fhir:unit "mg/dL" ;
+    fhir:date "2025-11-09"^^xsd:date .
+
+ex:obs-002 a fhir:Observation ;
+    fhir:subject ex:patient-002 ;
+    fhir:code "glucose" ;
+    fhir:valueQuantity 95 ;
+    fhir:unit "mg/dL" ;
+    fhir:date "2025-11-09"^^xsd:date .

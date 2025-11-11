@@ -1,0 +1,57 @@
+PREFIX ex: <http://example.org/>
+PREFIX fhir: <http://hl7.org/fhir/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# R1: Pacientes adultos
+RULE adultPatients
+CONSTRUCT {
+  ?p ex:isAdult true .
+}
+WHERE {
+  ?p a fhir:Patient ;
+     ex:age ?a .
+  FILTER(?a >= 18)
+}
+
+# R2: Hiperglucemia
+RULE highGlucose
+CONSTRUCT {
+  ?p ex:hasHighGlucose true .
+}
+WHERE {
+  ?obs a fhir:Observation ;
+       fhir:subject ?p ;
+       fhir:code "glucose" ;
+       fhir:valueQuantity ?v .
+  FILTER(?v > 126)
+}
+
+# R3: Diabetes probable
+RULE possibleDiabetes
+CONSTRUCT {
+  ?p ex:possibleCondition "diabetes" .
+}
+WHERE {
+  ?p ex:hasHighGlucose true .
+}
+
+# R4: Hipertenso con glucosa alta → Síndrome metabólico
+RULE metabolicSyndrome
+CONSTRUCT {
+  ?p ex:syndrome "metabolic" .
+}
+WHERE {
+  ?p ex:hasHighGlucose true .
+  ?cond a fhir:Condition ;
+        fhir:subject ?p ;
+        fhir:code "hypertension" .
+}
+
+# R5: Etiquetado de riesgo
+RULE highRisk
+CONSTRUCT {
+  ?p ex:riskCategory "high" .
+}
+WHERE {
+  ?p ex:syndrome "metabolic" .
+}

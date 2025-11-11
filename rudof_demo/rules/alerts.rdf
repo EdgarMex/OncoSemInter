@@ -1,0 +1,30 @@
+PREFIX ex: <http://example.org/>
+PREFIX fhir: <http://hl7.org/fhir/>
+
+# A1: Alerta de glucosa alta
+ALERT highGlucoseAlert
+CONSTRUCT {
+  ?p ex:alert "High glucose - recheck fasting sugar" .
+}
+WHERE {
+  ?p ex:hasHighGlucose true .
+}
+
+# A2: Alerta de síndrome metabólico
+ALERT metabolicAlert
+CONSTRUCT {
+  ?p ex:alert "Metabolic syndrome detected; recommend lifestyle change" .
+}
+WHERE {
+  ?p ex:syndrome "metabolic" .
+}
+
+# A3: Paciente sin diagnósticos previos
+ALERT noDiagnosis
+CONSTRUCT {
+  ?p ex:alert "No condition found; consider initial screening" .
+}
+WHERE {
+  ?p a fhir:Patient .
+  FILTER NOT EXISTS { ?c fhir:subject ?p ; a fhir:Condition }
+}

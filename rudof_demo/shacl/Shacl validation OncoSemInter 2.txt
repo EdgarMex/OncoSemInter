@@ -1,0 +1,280 @@
+##################################################################
+# Se tuvo que cambiar ex:BreastCancerShape por 
+# Elemento RDF	Relación con SHACL ex:BreastCancerDisease
+##################################################################
+# rdf:type snomed:254837009 / mesh:D001943 / umls:C0006142 Cumple sh:in con 
+# códigos aceptados del shape.
+# ex:hasName	Es xsd:string, cumple sh:datatype y sh:minCount 1.
+# ex:hasGene ex:BRCA1, ex:BRCA2	Cumple sh:class ex:Gene y sh:maxCount 5.
+# ex:hasObservation ex:Obs_BRCA_Mutation, ex:Obs_ER_Status Cumple sh:class 
+# ex:LabObservation.
+# ex:validatedBy ex:BreastCancerShape	Enlaza explícitamente el RDF con su 
+# validador SHACL.
+# Pagina principal del validor: https://rdfshape.weso.es/
+##################################################################
+@prefix dash:    <http://datashapes.org/dash#> .
+@prefix dc:      <http://purl.org/dc/terms/> .
+@prefix ex:      <http://example.org/> .
+@prefix graphql: <http://datashapes.org/graphql#> .
+@prefix hgnc:    <https://identifiers.org/hgnc:> .
+@prefix mesh:    <http://id.nlm.nih.gov/mesh/> .
+@prefix ncit:    <https://ncimeta.nci.nih.gov/ncit:> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix snomed:  <http://snomed.info/id/> .
+@prefix swa:     <http://topbraid.org/swa#> .
+@prefix tosh:    <http://topbraid.org/tosh#> .
+@prefix umls:    <https://identifiers.org/umls:> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+################################################################
+# Nivel 1: Marco semántico general
+################################################################
+
+ex:UMLS a owl:Ontology ;
+  dc:title "Unified Medical Language System" ;
+  ex:connects ex:SNOMED, ex:LOINC, ex:MeSH, ex:NCIt ;
+  rdfs:comment "Marco unificador de terminologías clínicas." .
+
+ex:SNOMED a owl:Ontology ;
+  dc:title "SNOMED CT" ;
+  rdfs:subClassOf ex:UMLS .
+
+ex:LOINC a owl:Ontology ;
+  dc:title "LOINC" ;
+  rdfs:subClassOf ex:UMLS .
+
+ex:MeSH a owl:Ontology ;
+  dc:title "Medical Subject Headings (MeSH)" ;
+  rdfs:subClassOf ex:UMLS .
+
+ex:OBO a owl:Ontology ;
+  dc:title "OBO Foundry" ;
+  ex:promotesStandard ex:NCIt, ex:BCO, ex:OntoBreast .
+
+################################################################
+# Nivel 2: Genética y enfermedades raras
+################################################################
+
+ex:HGNC a owl:Ontology ;
+  dc:title "HGNC (Gene Nomenclature)" ;
+  ex:hasDomain "Genetics" .
+
+ex:ClinVar a owl:Ontology ;
+  dc:title "NCBI ClinVar" ;
+  rdfs:subClassOf ex:HGNC .
+
+ex:Orphanet a owl:Ontology ;
+  dc:title "Orphanet / ORDO" ;
+  rdfs:subClassOf ex:ClinVar ;
+  ex:alignedWith ex:NCIt .
+
+################################################################
+# Nivel 3: Oncología general
+################################################################
+
+ex:NCIt a owl:Ontology ;
+  dc:title "NCI Thesaurus" ;
+  rdfs:subClassOf ex:OBO ;
+  ex:hasDomain "Oncology" .
+
+ex:OncoCL a owl:Ontology ;
+  dc:title "Oncology Clinical Ontology (OncoCL)" ;
+  rdfs:subClassOf ex:NCIt .
+
+################################################################
+# Nivel 4: Ontologías específicas de cáncer de mama
+################################################################
+
+ex:BCO a owl:Ontology ;
+  dc:title "Breast Cancer Ontology" ;
+  rdfs:subClassOf ex:NCIt ;
+  ex:imports ex:OntoBreast, ex:BRCS, ex:BCGO, ex:MAMO, ex:OntOmama, ex:GIMI, ex:BRCAnet .
+
+ex:OntoBreast a owl:Ontology ;
+  dc:title "OntoBreast Ontology" ;
+  rdfs:subClassOf ex:BCO .
+
+ex:BRCS a owl:Ontology ;
+  dc:title "BRCS-Onto" ;
+  rdfs:subClassOf ex:BCO .
+
+ex:BCGO a owl:Ontology ;
+  dc:title "Breast Cancer Grading Ontology" ;
+  rdfs:subClassOf ex:BCO .
+
+ex:MAMO a owl:Ontology ;
+  dc:title "MAMO-SCR-Onto" ;
+  rdfs:subClassOf ex:BCO ;
+  ex:alignedWith ex:HGNC .
+
+ex:OntOmama a owl:Ontology ;
+  dc:title "ONTOmama" ;
+  rdfs:subClassOf ex:BCO ;
+  ex:alignedWith ex:GIMI .
+
+ex:GIMI a owl:Ontology ;
+  dc:title "GIMI Mammography Ontology" ;
+  rdfs:subClassOf ex:OntOmama .
+
+ex:BRCAnet a owl:Ontology ;
+  dc:title "BRCA Network Ontology" ;
+  rdfs:subClassOf ex:BCO ;
+  ex:alignedWith ex:HGNC, ex:ClinVar, ex:OntoBreast .
+
+################################################################
+# Nivel 5: Validación Semántica (Shape / SHACL)
+################################################################
+
+ex:BreastCancerShape a sh:NodeShape ;
+  dc:title "SHACL Form for Breast Cancer (ex:BreastCancerShape)" ;
+  sh:targetClass ex:BreastCancerDisease ;
+  ex:validates ex:BreastCancerCase003 ;
+  ex:alignedWith ex:BCO, ex:OntoBreast, ex:NCIt, ex:BRCAnet, ex:SNOMED, ex:MeSH ;
+  
+  # =========================================================
+  # PROPIEDAD 1: rdf:type - ex:BreastCancerDisease
+  # =========================================================
+  sh:property [
+    sh:path rdf:type ;
+    sh:in ( 
+      ex:BreastCancerDisease                    
+      snomed:254837009
+      mesh:D001943
+      umls:C0006142
+    ) ;
+    sh:minCount 1 ;
+    sh:message "The entity must match Breast Cancer types (local or standard: SNOMED, MeSH, UMLS)." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 2: ex:hasName
+  # =========================================================
+  sh:property [
+    sh:path ex:hasName ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "Must have exactly one name as a string." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 3: ex:hasGene
+  # =========================================================
+  sh:property [
+    sh:path ex:hasGene ;
+    sh:class ex:Gene ;
+    sh:minCount 0 ;
+    sh:maxCount 5 ;
+    sh:message "All genes must be of type ex:Gene. Maximum 5 allowed." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 4: ex:hasObservation
+  # =========================================================
+  sh:property [
+    sh:path ex:hasObservation ;
+    sh:class ex:LabObservation ;
+    sh:minCount 0 ;
+    sh:message "All observations must be of type ex:LabObservation." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 5: ex:hasClinicalStage
+  # =========================================================
+  sh:property [
+    sh:path ex:hasClinicalStage ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "Clinical stage must be a string if present." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 6: ex:hasPatientAge
+  # =========================================================
+  sh:property [
+    sh:path ex:hasPatientAge ;
+    sh:datatype xsd:integer ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "Patient age must be an integer if present." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 7: ex:familyHistoryOfBreastCancer
+  # =========================================================
+  sh:property [
+    sh:path ex:familyHistoryOfBreastCancer ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "Family history must be a boolean if present." ;
+  ] ;
+  
+  # =========================================================
+  # PROPIEDAD 8: ex:recordCreated
+  # =========================================================
+  sh:property [
+    sh:path ex:recordCreated ;
+    sh:datatype xsd:date ;
+    sh:minCount 0 ;
+    sh:maxCount 1 ;
+    sh:message "Record creation date must be a date." ;
+  ] ;
+  
+  # ======================================================
+  # PROPIEDAD 9: ex:derivedTreatmentOptions Propiedades derivadas
+  # ======================================================
+    sh:property [
+    sh:path ex:derivedTreatmentOptions ;
+    sh:values ( ex:Therapy_Tamoxifen ex:Therapy_Chemotherapy ) ;
+    sh:message "Treatment options must be valid for ER+ breast cancer" ;
+  ] ;
+
+  # ======================================================
+  # Validación cruzada con SPARQL (sh:sparql)
+  # ======================================================
+  sh:sparql [
+  sh:message "ER+ cases MUST receive endocrine therapy" ;
+  sh:select """
+    PREFIX ex: <http://example.org/> 
+    SELECT $this WHERE {
+      $this ex:hasObservation ?obs .
+      ?obs ex:hasName "Estrogen receptor (ER) status" ;
+             ex:hasValue "Positive" .
+      FILTER NOT EXISTS { $this ex:treatedWith ex:Therapy_Tamoxifen }
+    }
+  """ ;
+  ] ;
+  # =========================================================
+  # PROPIEDAD 10: ex:diagnosedAt
+  # =========================================================
+  sh:property [
+    sh:path ex:diagnosedAt ;
+    sh:class ex:ClinicalSite ;
+    sh:minCount 1 ;   # Diagnóstico siempre en un sitio
+    sh:maxCount 1 ;   # Un único sitio de diagnóstico inicial
+    sh:message "Must reference a valid clinical site." ;
+  ] .
+
+################################################################
+# Definiciones de clases
+################################################################
+
+ex:BreastCancerDisease a rdfs:Class ;
+  rdfs:label "Breast Cancer Disease"@en .
+
+ex:Gene a rdfs:Class ;
+  rdfs:label "Gene"@en .
+
+ex:LabObservation a rdfs:Class ;
+  rdfs:label "Laboratory Observation"@en .
+
+ex:ClinicalSite a rdfs:Class ;
+  rdfs:label "Clinical Site"@en .
+
+ex:Therapy a rdfs:Class ;
+  rdfs:label "Therapy"@en .

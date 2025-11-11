@@ -1,0 +1,107 @@
+# Se usó formato: Turtle
+# Inference: None 
+# SHACL engine: SHACL_TQ
+# Hecho por: Fco. Edgar Castillo Barrera
+# Version 1.0, 6-Nov-2025,
+# Oviedo, España, ecastillo@uaslp.mx
+# Pagina principal: https://rdfshape.weso.es/
+
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix snomed: <http://snomed.info/id/> .
+@prefix mesh: <http://id.nlm.nih.gov/mesh/> .
+@prefix umls: <https://identifiers.org/umls:> .
+@prefix hgnc: <https://identifiers.org/hgnc:> .
+@prefix ncit: <https://ncimeta.nci.nih.gov/ncit:> .
+
+##################################################################
+# Instancia RDF: Caso clínico de cáncer de mama
+##################################################################
+
+ex:BreastCancerCase003
+    rdf:type ex:BreastCancerDisease ;
+    rdf:type snomed:254837009 ;                          # Cáncer de mama (SNOMED CT)
+    rdf:type mesh:D001943 ;                              # Breast Cancer (MeSH)
+    rdf:type umls:C0006142 ;                             # UMLS Concept ID
+    ex:hasName "Breast Cancer Case – Estrogen receptor positive"^^xsd:string ;
+    ex:hasGene ex:BRCA1 , ex:BRCA2 ;
+    ex:hasObservation ex:Obs_BRCA_Mutation , ex:Obs_ER_Status ;
+    ex:hasClinicalStage "Stage II – invasive ductal carcinoma"^^xsd:string ;
+    ex:treatedWith ex:Therapy_Tamoxifen ;
+    ex:diagnosedAt ex:Hospital_001 ;
+    ex:recordCreated "2025-10-28"^^xsd:date ;
+    ex:validatedBy ex:BreastCancerShape ;
+    ex:hasPatientAge "55"^^xsd:integer ;                    # Riesgo asociado a la edad
+    ex:familyHistoryOfBreastCancer "true"^^xsd:boolean ; # BRCA+ context
+    ex:prognosis "Favorable (ER+, early stage)"^^xsd:string ;
+    ex:survivalRate "85-90% at 10 years"^^xsd:string ;
+    ex:followUpSchedule ex:FollowUpPlan_001 .           # Continuidad asistencial
+
+##################################################################
+# Entidades genéticas involucradas (vinculadas a HGNC / BRCAnet)
+##################################################################
+
+ex:BRCA1
+    rdf:type ex:Gene ;
+    rdf:type hgnc:1100 ;
+    rdfs:label "BRCA1 gene"@en ;
+    ex:associatedWithMutation ex:Variant_BRCA1_5382insC ;
+    ex:referencedIn ex:BRCAnet .
+
+ex:BRCA2
+    rdf:type ex:Gene ;
+    rdf:type hgnc:1101 ;
+    rdfs:label "BRCA2 gene"@en ;
+    ex:associatedWithMutation ex:Variant_BRCA2_6174delT ;
+    ex:referencedIn ex:BRCAnet .
+
+##################################################################
+# Observaciones clínicas / de laboratorio (LabObservation)
+##################################################################
+
+ex:Obs_BRCA_Mutation
+    rdf:type ex:LabObservation ;
+    ex:hasName "BRCA1 variant detection (5382insC)"^^xsd:string ;
+    ex:hasValue "Detected"^^xsd:string ;
+    ex:derivedFrom ex:BRCA1 ;
+    ex:referencedBy ncit:C4816 ; # Mutation Type concept in NCIt
+    ex:method "PCR sequencing"^^xsd:string .
+
+ex:Obs_ER_Status
+    rdf:type ex:LabObservation ;
+    ex:hasName "Estrogen receptor (ER) status"^^xsd:string ;
+    ex:hasValue "Positive"^^xsd:string ;
+    ex:referencedBy ncit:C25185 ; # ER receptor positivity concept in NCIt
+    ex:method "Immunohistochemistry"^^xsd:string .
+
+##################################################################
+# Tratamiento y lugar
+##################################################################
+
+ex:Therapy_Tamoxifen
+    rdf:type ex:Therapy ;
+    rdfs:label "Tamoxifen (Adjuvant PI therapy)"@en ;
+    ex:targetsReceptor "Estrogen receptor"^^xsd:string ;
+    ex:referencedBy ncit:C891 ; # Tamoxifen concept (NCIt)
+    ex:appliedTo ex:BreastCancerCase003 .
+
+ex:Hospital_001
+    rdf:type ex:ClinicalSite ;
+    ex:siteName "National Oncology Research Center"@en ;
+    ex:siteCountry "Argentina"@es ;
+    ex:recordedCase ex:BreastCancerCase003 .
+
+##################################################################
+# Elemento RDF	Relación con SHACL ex:BreastCancerShape
+##################################################################
+# rdf:type snomed:254837009 / mesh:D001943 / umls:C0006142 Cumple sh:in con 
+# códigos aceptados del shape.
+# ex:hasName	Es xsd:string, cumple sh:datatype y sh:minCount 1.
+# ex:hasGene ex:BRCA1, ex:BRCA2	Cumple sh:class ex:Gene y sh:maxCount 5.
+# ex:hasObservation ex:Obs_BRCA_Mutation, ex:Obs_ER_Status Cumple sh:class 
+# ex:LabObservation.
+# ex:validatedBy ex:BreastCancerShape	Enlaza explícitamente el RDF con su 
+# validador SHACL.
+##################################################################

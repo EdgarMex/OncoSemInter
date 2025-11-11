@@ -1,3 +1,6 @@
+Linea de comandos de rudof
+rudof shacl-validate --shapes shapes.ttl data.ttl
+
 Patient: María García
 Age: 55
 Condition: Breast Cancer (SNOMED:254837009)

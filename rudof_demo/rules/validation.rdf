@@ -1,0 +1,27 @@
+PREFIX ex: <http://example.org/>
+PREFIX fhir: <http://hl7.org/fhir/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# V1: Todos los pacientes deben tener ID
+VALIDATE patientHasID
+ASK {
+  FILTER NOT EXISTS { ?p a fhir:Patient ; fhir:id ?id }
+}
+
+# V2: Todos los pacientes deben tener nombre
+VALIDATE patientHasName
+ASK {
+  FILTER NOT EXISTS { ?p a fhir:Patient ; fhir:name ?name }
+}
+
+# V3: Observaciones deben tener unidad
+VALIDATE observationHasUnit
+ASK {
+  FILTER NOT EXISTS { ?o a fhir:Observation ; fhir:unit ?u }
+}
+
+# V4: Condiciones deben tener código
+VALIDATE conditionHasCode
+ASK {
+  FILTER NOT EXISTS { ?c a fhir:Condition ; fhir:code ?code }
+}

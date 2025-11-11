@@ -1,0 +1,11 @@
+@prefix ex: <http://example.org/> .
+@prefix fhir: <http://hl7.org/fhir/> .
+
+# Condiciones clínicas iniciales
+ex:cond-001 a fhir:Condition ;
+    fhir:subject ex:patient-001 ;
+    fhir:code "hypertension" .
+
+ex:cond-002 a fhir:Condition ;
+    fhir:subject ex:patient-002 ;
+    fhir:code "none" .
