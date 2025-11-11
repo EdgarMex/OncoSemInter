@@ -1,0 +1,30 @@
+{
+  "@context": {
+    "ex": "http://example.org/"
+  },
+  "@graph": [
+    {
+      "@id": "ex:Patient_A",
+      "@type": "ex:Patient",
+      "ex:hasObservation": { "@id": "ex:Obs_A" },
+      "ex:treatedWith": { "@id": "ex:Therapy_Tamoxifen" }
+    },
+    {
+      "@id": "ex:Obs_A",
+      "@type": "ex:Observation",
+      "ex:hasName": "Estrogen receptor (ER) status",
+      "ex:hasValue": "Positive"
+    },
+    {
+      "@id": "ex:Patient_B",
+      "@type": "ex:Patient",
+      "ex:hasObservation": { "@id": "ex:Obs_B" }
+    },
+    {
+      "@id": "ex:Obs_B",
+      "@type": "ex:Observation",
+      "ex:hasName": "Estrogen receptor (ER) status",
+      "ex:hasValue": "Positive"
+    }
+  ]
+}

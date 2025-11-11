@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "sh": "http://www.w3.org/ns/shacl#",
+    "ex": "http://example.org/"
+  },
+  "@graph": [
+    {
+      "@id": "ex:PatientShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": { "@id": "ex:Patient" },
+      "sh:sparql": {
+        "sh:message": "ER+ cases MUST receive endocrine therapy",
+        "sh:select": "SELECT $this WHERE { $this ex:hasObservation ?obs . ?obs ex:hasName 'Estrogen receptor (ER) status' ; ex:hasValue 'Positive' . FILTER NOT EXISTS { $this ex:treatedWith ex:Therapy_Tamoxifen } }"
+      }
+    }
+  ]
+}
