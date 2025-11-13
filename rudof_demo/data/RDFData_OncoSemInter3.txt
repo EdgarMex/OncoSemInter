@@ -3,6 +3,7 @@
 # entre ontologías médicas: snomed, umls, mesh, hgnc, ncit
 #-----------------------------------------------
 # Hecho por: Fco. Edgar Castillo Barrera
+# Email: ecastillo@uaslp.mx
 #-----------------------------------------------
 # Archivo de Datos: RDFData_OncoSemInter3
 #-----------------------------------------------
@@ -10,8 +11,12 @@
 # Inference: None 
 # SHACL engine: SHACL_TQ
 # Version 1.1, 11-Nov-2025,
-# Oviedo, España, ecastillo@uaslp.mx
+# Oviedo, España
 # Pagina principal: https://rdfshape.weso.es/
+#                   https://rudof-project.github.io/
+#  Usar SHACL SPARQL: https://github.com/TopQuadrant/shacl
+#  SHACL engine: SHACL_TQ
+#  Inference: OWL
 #################################################
 
 @prefix ex: <http://example.org/> .

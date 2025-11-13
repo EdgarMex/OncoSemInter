@@ -1,0 +1,15 @@
+#Ejecutarse en: https://es.dbpedia.org/sparql/
+
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name ?abstract
+WHERE {
+  ?subject rdf:type dbo:Disease ;
+           rdfs:label ?name ;
+           dbo:abstract ?abstract .
+  FILTER(LANG(?name) = "es" && LANG(?abstract) = "es")
+  FILTER(REGEX(?name, "Cancer", "i"))
+}
+LIMIT 10
