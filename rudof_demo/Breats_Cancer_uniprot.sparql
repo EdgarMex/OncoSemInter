@@ -1,0 +1,13 @@
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?protein ?diseaseIRI ?breast_cancer
+WHERE {
+  ?protein a up:Protein .
+  ?protein up:annotation ?ann .
+  ?ann a up:Disease_Annotation .
+  ?ann up:disease ?diseaseIRI .
+  OPTIONAL { ?ann rdfs:comment ?breast_cancer . }
+  FILTER( BOUND(?breast_cancer) && CONTAINS(LCASE(STR(?breast_cancer)), "breast cancer") )
+}
+LIMIT 5000

@@ -1,0 +1,59 @@
+# Enfermedades NANDO (Nando_Disease)
+# Labels de NANDO
+# Equivalencias a MONDO (owl:equivalentClass) y sus labels
+# Cross-references posibles a OMIM, MeSH y Orphanet si están 
+# disponibles en RDF Portal Filtrado por “cancer”
+# Explorar todo el dataset del SPARQL End Point
+# Explorar todo SELECT DISTINCT ?p WHERE { ?s ?p ?o }
+
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:   <http://www.w3.org/2002/07/owl#>
+PREFIX skos:  <http://www.w3.org/2004/02/skos/core#>
+PREFIX nando: <http://rdfportal.org/nando/>
+
+SELECT DISTINCT
+  ?nandoDisease
+  ?nandoLabel
+  ?mondoClass
+  ?mondoLabel
+  ?omim
+  ?mesh
+  ?orphanet
+WHERE {
+  GRAPH <http://rdfportal.org/graph/nando> {
+
+    # Enfermedades NANDO
+    ?nandoDisease a nando:Nando_Disease .
+    OPTIONAL { ?nandoDisease rdfs:label ?nandoLabel . }
+
+    # Equivalencias a MONDO
+    OPTIONAL {
+      ?nandoDisease owl:equivalentClass ?mondoClass .
+      OPTIONAL { ?mondoClass rdfs:label ?mondoLabel . }
+    }
+
+    # Cross-references potenciales
+    OPTIONAL { 
+      ?nandoDisease skos:exactMatch ?omim .
+      FILTER(CONTAINS(LCASE(STR(?omim)), "omim"))
+    }
+
+    OPTIONAL { 
+      ?nandoDisease skos:exactMatch ?mesh .
+      FILTER(CONTAINS(LCASE(STR(?mesh)), "mesh"))
+    }
+
+    OPTIONAL { 
+      ?nandoDisease skos:exactMatch ?orphanet .
+      FILTER(CONTAINS(LCASE(STR(?orphanet)), "orpha"))
+    }
+
+    # Filtrar por "cancer" en NANDO o MONDO
+    FILTER (
+      (BOUND(?nandoLabel) && CONTAINS(LCASE(STR(?nandoLabel)), "cancer")) ||
+      (BOUND(?mondoLabel) && CONTAINS(LCASE(STR(?mondoLabel)), "cancer"))
+    )
+  }
+}
+LIMIT 200
