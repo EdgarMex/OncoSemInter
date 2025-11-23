@@ -1,0 +1,23 @@
+# Se usó formato: Turtle
+# Inference: None 
+# SHACL engine: SHACL_TQ
+# Hecho por: Fco. Edgar Castillo Barrera
+# Version 1.0, 6-Nov-2025,
+# Oviedo, España, ecastillo@uaslp.mx
+# Pagina principal: https://rdfshape.weso.es/
+
+PREFIX ex: <http://example.org/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX snomed: <http://snomed.info/id/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+ex:BreastCancerCase003
+  a ex:BreastCancerDisease ;
+  rdf:type snomed:254837009 ;
+  ex:hasName "Breast cancer"^^xsd:string ;
+  ex:hasGene ex:G1, ex:G2, ex:G3, ex:G4, ex:G5, ex:G6 ;
+  ex:hasObservation ex:Obs1 .
+
+ex:G1 a ex:Gene . ex:G2 a ex:Gene . ex:G3 a ex:Gene .
+ex:G4 a ex:Gene . ex:G5 a ex:Gene . ex:G6 a ex:Gene .
+ex:Obs1 a ex:LabObservation .
