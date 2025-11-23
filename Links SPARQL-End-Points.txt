@@ -1,0 +1,25 @@
+Probar estos Sparql End-Points
+https://dbpedia.org/sparql
+https://es.dbpedia.org/sparql/
+
+https://query.wikidata.org/
+
+https://sparql.uniprot.org/
+https://sparql.uniprot.org/sparql/
+https://rdfportal.org/  Portal Japones de junta
+https://rdfportal.org/primary/sparql
+la información de ontologies existentes
+
+https://es.dbpedia.org/sparql/
+https://query.wikidata.org/
+
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?type (COUNT(*) as ?count)
+WHERE {
+  ?subject rdf:type ?type .
+}
+GROUP BY ?type
+ORDER BY DESC(?count)
+LIMIT 20
