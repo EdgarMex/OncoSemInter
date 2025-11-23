@@ -2,7 +2,10 @@
 Breast Cancer Case Study
 <img width="82" height="20" alt="image" src="https://github.com/user-attachments/assets/ac236fd9-5abd-4ba8-ab42-0e8dd848fb22" />
 
-OncoSemInt is a framework prototype of an operational ontology between ontologies for breast cancer, integrated with BI-RADS and connected to HL7 FHIR Foundation. The goal is to facilitate interoperability between clinical ontologies and digital medical images (DICOM and others), with support for FHIR R5 serialization, DICOM reading, synthetic record generation, reasoning, and SPARQL queries.
+OncoSemInt is a framework prototype of an operational ontology between ontologies for breast cancer, with a system architecture and data flow pipeline based on semantic technologies for integrating existing biomedical ontologies such as NCIt, BCO, OntoBreast, and MAMO—SCR-Onto using RDF data shapes (ShEx and/or SHACL) to validate and achieve semantic interoperability among them, creating a single validated RDF graph, which can be transferred to clinical environments that support interoperability
+through HL7-FHIR and SNOMED-CT standards
+
+integrated with ShEx/Schacl and connected to HL7 FHIR Foundation. The goal is to facilitate interoperability between clinical ontologies and digital medical images (DICOM and others), with support for FHIR R5 serialization, DICOM reading, synthetic record generation, reasoning, and SPARQL queries.
 
 Table of Contents
 Objective and Scope
