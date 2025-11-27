@@ -1,0 +1,55 @@
+# Se usó formato: Turtle
+# Inference: None 
+# SHACL engine: SHACL_TQ
+# Hecho por: Fco. Edgar Castillo Barrera
+# Version 1.0, 6-Nov-2025,
+# Oviedo, España, ecastillo@uaslp.mx
+# Pagina principal: https://rdfshape.weso.es/
+
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex: <http://example.org/> .
+@prefix snomed: <http://snomed.info/id/> .
+@prefix mesh: <http://id.nlm.nih.gov/mesh/> .
+@prefix umls: <https://identifiers.org/umls:> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:CancerDiseaseShape
+  a sh:NodeShape ;
+  sh:targetClass ex:CancerDisease ;
+
+  # Debe existir un identificador válido
+  
+sh:property [
+  sh:path rdf:type ;
+  sh:in (
+    snomed:363346000  # Cancer (genérico)
+    snomed:254837009  # Breast cancer
+    mesh:D009369      # Cancer (MeSH)
+    mesh:D001943      # Breast Neoplasms (MeSH)
+    umls:C0006826     # Cancer
+    umls:C0006142     # Breast cancer (UMLs)
+  ) ;
+  sh:message "La instancia debe hacer match con Cancer o Cancer de mama en termimos de SNOMED, MeSH or UMLS." ;
+] ;
+
+
+  # Debe tener una etiqueta
+  sh:property [
+    sh:path ex:hasName ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+
+  # Opcional gen asociado
+  sh:property [
+    sh:path ex:hasGene ;
+    sh:class ex:Gene ;
+    sh:maxCount 5 ;
+  ] ;
+
+  # Opcioan observaciones (ejemplo LOINC lab results)
+  sh:property [
+    sh:path ex:hasObservation ;
+    sh:class ex:LabObservation ;
+  ] .
